@@ -1,0 +1,222 @@
+{
+    "label": "Fruits Store",
+    "tags": "fruit,store",
+    "places": [
+        {
+            "label": "Home",
+            "commands": [
+                {
+                    "command": "assertElementPresent",
+                    "target": "css=.ProductList",
+                    "value": null
+                }
+            ]
+        }
+    ],
+    "transitions": [
+        {
+            "label": "Go To Home",
+            "guard": "true",
+            "fromPlaces": [],
+            "toPlaces": [
+                0
+            ],
+            "commands": [
+                {
+                    "command": "open",
+                    "target": "https:\/\/renaudtertrais.github.io\/fruits-store\/",
+                    "value": null
+                },
+                {
+                    "command": "store",
+                    "target": "4",
+                    "value": "added"
+                },
+                {
+                    "command": "store",
+                    "target": "closed",
+                    "value": "cart"
+                },
+                {
+                    "command": "store",
+                    "target": null,
+                    "value": "removeProduct"
+                },
+                {
+                    "command": "store",
+                    "target": null,
+                    "value": "quantity"
+                },
+                {
+                    "command": "store",
+                    "target": null,
+                    "value": "addProduct"
+                }
+            ]
+        },
+        {
+            "label": "Add",
+            "guard": "added \u003C 8 \u0026\u0026 addProduct !== null \u0026\u0026 quantity !== null",
+            "fromPlaces": [
+                0
+            ],
+            "toPlaces": [
+                0
+            ],
+            "commands": [
+                {
+                    "command": "type",
+                    "target": "xpath=\/\/div[@class=\u0027ProductListItem__name\u0027 and text()=\u0027${addProduct}\u0027]\/..\/\/input",
+                    "value": "${quantity}"
+                },
+                {
+                    "command": "click",
+                    "target": "xpath=\/\/div[@class=\u0027ProductListItem__name\u0027 and text()=\u0027${addProduct}\u0027]\/..\/\/button",
+                    "value": null
+                },
+                {
+                    "command": "assertElementNotPresent",
+                    "target": "xpath=\/\/div[@class=\u0027ProductListItem__name\u0027 and text()=\u0027${addProduct}\u0027]\/..\/\/button[contains(@class, \u0027ProductListItem__add-to-cart-button\u0027)]",
+                    "value": null
+                },
+                {
+                    "command": "executeScript",
+                    "target": "return ${added} + 1",
+                    "value": "added"
+                },
+                {
+                    "command": "store",
+                    "target": null,
+                    "value": "addProduct"
+                }
+            ]
+        },
+        {
+            "label": "Remove",
+            "guard": "added \u003E 0 \u0026\u0026 cart === \u0027open\u0027 \u0026\u0026 removeProduct !== null",
+            "fromPlaces": [
+                0
+            ],
+            "toPlaces": [
+                0
+            ],
+            "commands": [
+                {
+                    "command": "click",
+                    "target": "xpath=\/\/div[@class=\u0027CartItem__name\u0027 and text()=\u0027${removeProduct}\u0027]\/..\/\/button",
+                    "value": null
+                },
+                {
+                    "command": "assertElementNotPresent",
+                    "target": "xpath=\/\/div[@class=\u0027CartItem__name\u0027 and text()=\u0027${removeProduct}\u0027]\/..\/\/button[contains(@class, \u0027CartItem__remove-button\u0027)]",
+                    "value": null
+                },
+                {
+                    "command": "executeScript",
+                    "target": "return ${added} - 1",
+                    "value": "added"
+                },
+                {
+                    "command": "store",
+                    "target": null,
+                    "value": "removeProduct"
+                }
+            ]
+        },
+        {
+            "label": "Open Cart",
+            "guard": "cart === \u0027closed\u0027",
+            "fromPlaces": [
+                0
+            ],
+            "toPlaces": [
+                0
+            ],
+            "commands": [
+                {
+                    "command": "click",
+                    "target": "css=.App__cart-button",
+                    "value": null
+                },
+                {
+                    "command": "store",
+                    "target": "open",
+                    "value": "cart"
+                }
+            ]
+        },
+        {
+            "label": "Close Cart",
+            "guard": "cart === \u0027open\u0027",
+            "fromPlaces": [
+                0
+            ],
+            "toPlaces": [
+                0
+            ],
+            "commands": [
+                {
+                    "command": "click",
+                    "target": "css=.App__cart-button.active",
+                    "value": null
+                },
+                {
+                    "command": "store",
+                    "target": "closed",
+                    "value": "cart"
+                }
+            ]
+        },
+        {
+            "label": "Random Remove Product",
+            "guard": "added \u003E 0 \u0026\u0026 cart === \u0027open\u0027",
+            "fromPlaces": [
+                0
+            ],
+            "toPlaces": [
+                0
+            ],
+            "commands": [
+                {
+                    "command": "executeScript",
+                    "target": "var elements = document.querySelectorAll(\u0027.CartItem__remove-button\u0027); var element = elements[Math.floor(Math.random() * elements.length)]; return element.parentElement.querySelector(\u0027.CartItem__name\u0027).textContent;",
+                    "value": "removeProduct"
+                }
+            ]
+        },
+        {
+            "label": "Random Quantity",
+            "guard": "true",
+            "fromPlaces": [
+                0
+            ],
+            "toPlaces": [
+                0
+            ],
+            "commands": [
+                {
+                    "command": "executeScript",
+                    "target": "return Math.floor(Math.random() * 10);",
+                    "value": "quantity"
+                }
+            ]
+        },
+        {
+            "label": "Random Add Product",
+            "guard": "added \u003C 8",
+            "fromPlaces": [
+                0
+            ],
+            "toPlaces": [
+                0
+            ],
+            "commands": [
+                {
+                    "command": "executeScript",
+                    "target": "var elements = document.querySelectorAll(\u0027.ProductListItem__add-to-cart\u0027); var element = elements[Math.floor(Math.random() * elements.length)]; return element.parentElement.querySelector(\u0027.ProductListItem__name\u0027).textContent;",
+                    "value": "addProduct"
+                }
+            ]
+        }
+    ]
+}
