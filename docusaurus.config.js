@@ -1,18 +1,18 @@
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
+  title: 'SICOPE Model',
+  tagline: 'An open source model-based testing tool for web applications',
+  url: 'https://sicope-model.github.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'sicope-model', // Usually your GitHub org/user name.
+  projectName: 'sicope-model.github.io', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: 'SICOPE Model',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'SICOPE Model Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -22,9 +22,11 @@ module.exports = {
           label: 'Docs',
           position: 'left',
         },
+        {to: 'docs/tutorial', label: 'Tutorial', position: 'left'},
         {to: 'blog', label: 'Blog', position: 'left'},
+        {to: 'screenshots', label: 'Screenshots', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/sicope-model/sicope-model',
           label: 'GitHub',
           position: 'right',
         },
@@ -37,12 +39,20 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
+              label: 'Intro',
               to: 'docs/',
             },
             {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
+              label: 'Model',
+              to: 'docs/model/',
+            },
+            {
+              label: 'Task',
+              to: 'docs/task/',
+            },
+            {
+              label: 'Bug',
+              to: 'docs/bug/',
             },
           ],
         },
@@ -50,16 +60,8 @@ module.exports = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'Slack',
+              href: 'https://sicope-model.slack.com',
             },
           ],
         },
@@ -72,12 +74,20 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/sicope-model/sicope-model',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Tien Vo. Built with Docusaurus.`,
+    },
+    googleAnalytics: {
+      trackingID: 'UA-40149047-4',
+    },
+    algolia: {
+      apiKey: '562cb171575211627118ad5ffda03139',
+      indexName: 'mbtbundle',
+      algoliaOptions: {}, // Optional, if provided by Algolia
     },
   },
   presets: [
@@ -88,13 +98,13 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/sicope-model/sicope-model-website/edit/master/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+            'https://github.com/sicope-model/sicope-model-website/edit/master/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
