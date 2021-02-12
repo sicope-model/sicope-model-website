@@ -24,3 +24,4 @@ SICOPE Model is a model-based testing tool for web application. It has these fea
 * It generates test cases during test execution (online).
 * It automatically reduce bug's reproduce steps.
 * It can report the bug via Email and Slack.
+* It can test as many models at the same time as you like.
