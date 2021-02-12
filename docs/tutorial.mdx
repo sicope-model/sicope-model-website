@@ -46,90 +46,77 @@ This web application only have one page, so we can create one place called `Home
 
 ### Home
 
+![home-place](/img/docs/tutorial/home-place.png)
+
 To verify that we actually in home page, we can add a command to verify an element in it:
 
-| Command | Target      | Value     |
+| Command | Target | Value |
 | -------- | --------- | ---------- |
-| Assert Element Present  | css=.ProductList | `null` |
-
-![home-place](/img/docs/tutorial/home-place.png)
+| Assert Element Present | css=.ProductList | |
 
 Everytime our model reach `Home` place, it run this command to verify that we are actually in `Home` web page.
 
 ## Transitions
 
-We can define transitions as big or small as you like. In this case, we define transitions based on features this web
-application have:
+We define transitions based on features this web application have:
 
 * Add
 * Remove
 * Close Cart
 * Open Cart
 
-We also need one starting transition to tell this tool to go to homepage once at the beginning of the testing process:
+We also need one starting transition to tell this tool where to begin with:
 
 * Go To Home
 
-Usually those transitions are enough. But since we also want to choose random quantity to add, choose random product to
-add/remove to/from cart, we need at least 3 more transitions:
+Usually those transitions are enough. But since we also want to choose random quantity, choose random product to
+add to cart, choose random product to remove from cart, we need at least 3 more transitions:
 
 * Random Remove Product
 * Random Add Product
 * Random Quantity
 
+:::info
+We create extra transitions, because we don't want them to affect variables when reducing bug's reproduce steps
+:::
+
 ### Go To Home
 
 ![go-to-home-transition](/img/docs/tutorial/go-to-home-transition.png)
 
-The starting transition is quite big because it need to do several things:
+We need these commands:
 
-* Go to home page
-* Store values to some variables
-    * added: 4
-    * cart: closed
-    * addProduct: `null`
-    * removeProduct: `null`
-    * quantity: `null`
-
-To do that, we need these commands:
-
-| Command        |      Target      |   Value |
+| Command | Target | Value |
 | ------------- | :-----------: | -----: |
-| Open      | https://renaudtertrais.github.io/fruits-store/ | `null` |
-| Store      |   4    |   added |
-| Store |   closed    |    cart |
-| Store |   `null`    |    removeProduct |
-| Store |   `null`    |    quantity |
-| Store |   `null`    |    addProduct |
+| Open | https://renaudtertrais.github.io/fruits-store/ | |
+| Store | 4 | added |
+| Store | closed | cart |
+| Store | | removeProduct |
+| Store | | quantity |
+| Store | | addProduct |
 
 There is no restriction to apply this transition, so the guard has value `true`.
 
+:::info
 Each transition must come from at least 1 place to at least 1 place. There is one exception in this case: it is a
 starting transition, so it does not come from any place. There is only and only one starting transition in a model.
 
 Unlike starting transition, all transitions below come from transition `Home` to transition `Home`.
+:::
 
 ### Add
 
 ![add-transition](/img/docs/tutorial/add-transition.png)
 
-This transition does several things:
+We need these commands:
 
-* Type quantity into the `quantity` text box
-* Click `Add to cart`
-* Assert that the button `Add to cart` is not present
-* Execute script to increase `added` number
-* Clear the variable `addProduct` (set to `null`)
-
-To do that, we need these commands:
-
-| Command        |      Target      |   Value |
+| Command | Target | Value |
 | ------------- | :-----------: | -----: |
-| Type      | xpath=//div[@class='ProductListItem__name' and text()='${addProduct}']/..//input | ${quantity} |
-| Click      |   xpath=//div[@class='ProductListItem__name' and text()='${addProduct}']/..//button    |   `null` |
-| Assert Element Not Preset |   xpath=//div[@class='ProductListItem__name' and text()='${addProduct}']/..//button[contains(@class, 'ProductListItem__add-to-cart-button')]    |    `null` |
-| Execute Script |   return ${added} + 1    |    added |
-| Store |   `null`    |    addProduct |
+| Type | `xpath=//div[@class='ProductListItem__name' and text()='${addProduct}']/..//input` | ${quantity} |
+| Click | `xpath=//div[@class='ProductListItem__name' and text()='${addProduct}']/..//button` | |
+| Assert Element Not Preset | `xpath=//div[@class='ProductListItem__name' and text()='${addProduct}']/..//button[contains(@class, 'ProductListItem__add-to-cart-button')]` | |
+| Execute Script | `return ${added} + 1` | added |
+| Store | | addProduct |
 
 The condition to apply this transition is `added < 8 && addProduct !== null && quantity !== null`, meaning:
 
@@ -141,21 +128,14 @@ The condition to apply this transition is `added < 8 && addProduct !== null && q
 
 ![remove-transition](/img/docs/tutorial/remove-transition.png)
 
-This transition does several things:
+We need these commands:
 
-* Click `Remove product` button
-* Assert that the button `Remove product` is not present
-* Execute script to decrease `added` number
-* Clear the variable `removeProduct` (set to `null`)
-
-To do that, we need these commands:
-
-| Command        |      Target      |   Value |
+| Command | Target | Value |
 | ------------- | :-----------: | -----: |
-| Click      |   xpath=//div[@class='CartItem__name' and text()='${removeProduct}']/..//button    |   `null` |
-| Assert Element Not Preset |   xpath=//div[@class='CartItem__name' and text()='${removeProduct}']/..//button[contains(@class, 'CartItem__remove-button')]    |    `null` |
-| Execute Script |   return ${added} - 1    |    added |
-| Store |   `null`    |    removeProduct |
+| Click | `xpath=//div[@class='CartItem__name' and text()='${removeProduct}']/..//button` | |
+| Assert Element Not Preset | `xpath=//div[@class='CartItem__name' and text()='${removeProduct}']/..//button[contains(@class, 'CartItem__remove-button')]` | |
+| Execute Script | `return ${added} - 1` | added |
+| Store | | removeProduct |
 
 The condition to apply this transition is `added > 0 && cart === 'open' && removeProduct !== null`, meaning:
 
@@ -167,17 +147,12 @@ The condition to apply this transition is `added > 0 && cart === 'open' && remov
 
 ![open-cart-transition](/img/docs/tutorial/open-cart-transition.png)
 
-This transition does several things:
+We need these commands:
 
-* Click on `cart` button
-* Set value `open` to variable `cart`
-
-To do that, we need these commands:
-
-| Command        |      Target      |   Value |
+| Command | Target | Value |
 | ------------- | :-----------: | -----: |
-| Click      |   css=.App__cart-button    |   `null` |
-| Store |   open    |    cart |
+| Click | `css=.App__cart-button` | |
+| Store | open | cart |
 
 The condition to apply this transition is `cart === 'closed'`, meaning:
 
@@ -187,17 +162,12 @@ The condition to apply this transition is `cart === 'closed'`, meaning:
 
 ![close-cart-transition](/img/docs/tutorial/close-cart-transition.png)
 
-This transition does several things:
+We need these commands:
 
-* Click on `cart` button, but only if the button have `active` class, meaning the cart is open
-* Set value `closed` to variable `cart`
-
-To do that, we need these commands:
-
-| Command        |      Target      |   Value |
+| Command | Target | Value |
 | ------------- | :-----------: | -----: |
-| Click      |   css=.App__cart-button.active    |   `null` |
-| Store |   closed    |    cart |
+| Click | `css=.App__cart-button.active` | |
+| Store | closed | cart |
 
 The condition to apply this transition is `cart === 'open'`, meaning:
 
@@ -207,13 +177,11 @@ The condition to apply this transition is `cart === 'open'`, meaning:
 
 ![random-remove-product-transition](/img/docs/tutorial/random-remove-product-transition.png)
 
-This transition choose a random added product, then set its name to variable `removeProduct`.
+We need these commands:
 
-To do that, we need these commands:
-
-| Command        |      Target      |   Value |
+| Command | Target | Value |
 | ------------- | :-----------: | -----: |
-| Execute Script |   var elements = document.querySelectorAll('.CartItem__remove-button'); var element = elements[Math.floor(Math.random() * elements.length)]; return element.parentElement.querySelector('.CartItem__name').textContent;    |    removeProduct |
+| Execute Script | `var elements = document.querySelectorAll('.CartItem__remove-button'); var element = elements[Math.floor(Math.random() * elements.length)]; return element.parentElement.querySelector('.CartItem__name').textContent;` | removeProduct |
 
 The condition is `added > 0 && cart === 'open'`, meaning:
 
@@ -224,13 +192,11 @@ The condition is `added > 0 && cart === 'open'`, meaning:
 
 ![random-add-product-transition](/img/docs/tutorial/random-add-product-transition.png)
 
-This transition choose a random product not added to cart, then set its name to variable `addProduct`.
+We need these commands:
 
-To do that, we need these commands:
-
-| Command        |      Target      |   Value |
+| Command | Target | Value |
 | ------------- | :-----------: | -----: |
-| Execute Script |   var elements = document.querySelectorAll('.ProductListItem__add-to-cart'); var element = elements[Math.floor(Math.random() * elements.length)]; return element.parentElement.querySelector('.ProductListItem__name').textContent;    |    addProduct |
+| Execute Script | `var elements = document.querySelectorAll('.ProductListItem__add-to-cart'); var element = elements[Math.floor(Math.random() * elements.length)]; return element.parentElement.querySelector('.ProductListItem__name').textContent;` | addProduct |
 
 The condition is `added < 8`, meaning:
 
@@ -240,13 +206,11 @@ The condition is `added < 8`, meaning:
 
 ![random-quantity-transition](/img/docs/tutorial/random-quantity-transition.png)
 
-This transition choose a random number from 0 to 10.
+We need these commands:
 
-To do that, we need these commands:
-
-| Command        |      Target      |   Value |
+| Command | Target | Value |
 | ------------- | :-----------: | -----: |
-| Execute Script |   return Math.floor(Math.random() * 10);    |    quantity |
+| Execute Script | `return Math.floor(Math.random() * 10);` | quantity |
 
 ## Task
 
