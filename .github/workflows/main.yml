@@ -1,17 +1,36 @@
 name: main
 
 on:
+  pull_request:
+    branches: [master]
   push:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
-  build:
-    name: Deploy to Github Pages
+  checks:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Test Build
+        run: |
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+          npm run build
+  gh-release:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
         node-version: '12.x'
@@ -35,5 +54,11 @@ jobs:
       run: |
         git config --global user.email "actions@gihub.com"
         git config --global user.name "gh-actions"
-        yarn install
-        yarn deploy
+        if [ -e yarn.lock ]; then
+        yarn install --frozen-lockfile
+        elif [ -e package-lock.json ]; then
+        npm ci
+        else
+        npm i
+        fi
+        npx docusaurus deploy
