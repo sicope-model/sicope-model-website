@@ -78,6 +78,18 @@ module.exports = {
             },
           ],
         },
+        {
+          title: 'Sponsors',
+          items: [
+            {
+              html: `
+                <a href="https://www.jetbrains.com/?from=SICOPE-Model" target="_blank" rel="noreferrer noopener" aria-label="JetBrains">
+                  <img src="https://github.com/JetBrains/logos/raw/master/web/jetbrains/jetbrains.svg" alt="Sponsor by JetBrains" />
+                </a>
+              `,
+            },
+          ],
+        },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Tien Vo. Built with Docusaurus.`,
     },
