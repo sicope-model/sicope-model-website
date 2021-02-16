@@ -40,17 +40,17 @@
                 {
                     "command": "store",
                     "target": null,
+                    "value": "addProduct"
+                },
+                {
+                    "command": "store",
+                    "target": null,
                     "value": "removeProduct"
                 },
                 {
                     "command": "store",
                     "target": null,
                     "value": "quantity"
-                },
-                {
-                    "command": "store",
-                    "target": null,
-                    "value": "addProduct"
                 }
             ]
         },
@@ -168,6 +168,23 @@
             ]
         },
         {
+            "label": "Random Add Product",
+            "guard": "added \u003C 8",
+            "fromPlaces": [
+                0
+            ],
+            "toPlaces": [
+                0
+            ],
+            "commands": [
+                {
+                    "command": "executeScript",
+                    "target": "var elements = document.querySelectorAll(\u0027.ProductListItem__add-to-cart\u0027); var element = elements[Math.floor(Math.random() * elements.length)]; return element.parentElement.querySelector(\u0027.ProductListItem__name\u0027).textContent;",
+                    "value": "addProduct"
+                }
+            ]
+        },
+        {
             "label": "Random Remove Product",
             "guard": "added \u003E 0 \u0026\u0026 cart === \u0027open\u0027",
             "fromPlaces": [
@@ -198,23 +215,6 @@
                     "command": "executeScript",
                     "target": "return Math.floor(Math.random() * 10);",
                     "value": "quantity"
-                }
-            ]
-        },
-        {
-            "label": "Random Add Product",
-            "guard": "added \u003C 8",
-            "fromPlaces": [
-                0
-            ],
-            "toPlaces": [
-                0
-            ],
-            "commands": [
-                {
-                    "command": "executeScript",
-                    "target": "var elements = document.querySelectorAll(\u0027.ProductListItem__add-to-cart\u0027); var element = elements[Math.floor(Math.random() * elements.length)]; return element.parentElement.querySelector(\u0027.ProductListItem__name\u0027).textContent;",
-                    "value": "addProduct"
                 }
             ]
         }
