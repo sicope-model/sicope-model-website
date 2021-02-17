@@ -97,9 +97,13 @@ module.exports = {
       trackingID: 'UA-40149047-4',
     },
     algolia: {
-      apiKey: '562cb171575211627118ad5ffda03139',
-      indexName: 'mbtbundle',
-      algoliaOptions: {}, // Optional, if provided by Algolia
+      apiKey: '88fe71effd6d731ba967b74e401cc8a0',
+      indexName: 'sicope-model',
+      algoliaOptions: {
+        'facetFilters': [
+            "type:content", "version:current", "language:en", "docusaurus_tag:default"
+        ]
+      }, // Optional, if provided by Algolia
     },
   },
   presets: [
