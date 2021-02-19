@@ -1,6 +1,6 @@
 module.exports = {
   docs: {
-    Intro: ['intro'],
+    Intro: ['intro', 'features'],
     More: ['model', 'task', 'bug'],
   },
 };
