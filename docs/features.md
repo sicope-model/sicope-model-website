@@ -14,12 +14,28 @@ It is useful to:
 * Validate documentation
 * Find bugs early in development process
 
+## Reduce Cost
+
+All you need to do is creating and maintaining your models. No need to worry about maintaining dozen, hundred of test
+cases.
+
 ## Compatible With Selenium IDE
 
 It can:
 
 * Use commands from Selenium IDE.
 * Export bug to Selenium IDE project.
+
+A tester who is familiar with Selenium IDE can start working on this tool quickly.
+
+## Increase Test Coverage
+
+This tool by default generate test case to cover 100% number of places and transitions your model have.
+
+## Exploration Test
+
+Each time running task, a new completely different test case are generated. You can also use Selenium IDE to execute
+Javascript code to generate random data for your test.
 
 ## Do Everything From UI
 
