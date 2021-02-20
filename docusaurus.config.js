@@ -23,6 +23,7 @@ module.exports = {
           position: 'left',
         },
         {to: 'docs/tutorial', label: 'Tutorial', position: 'left'},
+        {to: 'docs/features', label: 'Features', position: 'left'},
         {to: 'blog', label: 'Blog', position: 'left'},
         {to: 'screenshots', label: 'Screenshots', position: 'left'},
         {

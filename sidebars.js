@@ -1,6 +1,6 @@
 module.exports = {
   docs: {
-    Intro: ['intro', 'features'],
-    More: ['model', 'task', 'bug'],
+    Intro: ['mbt', 'sicope-model', 'features', 'cons', 'install'],
+    Terms: ['model', 'task', 'bug'],
   },
 };
