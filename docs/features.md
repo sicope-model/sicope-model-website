@@ -32,10 +32,10 @@ A tester who is familiar with Selenium IDE can start working on this tool quickl
 
 This tool by default generate test case to cover 100% number of places and transitions your model have.
 
-## Exploration Test
+## Exploratory Testing
 
 Each time running task, a new completely different test case are generated. You can also use Selenium IDE to execute
-Javascript code to generate random data for your test.
+Javascript code to generate random data for your test. This give you more chance to find a new bug.
 
 ## Do Everything From UI
 
@@ -61,10 +61,6 @@ For more information, please check [here](https://aerokube.com/images/latest/)
 
 You can define models or create tasks as many as you want, this tool will split into smaller jobs to assign to
 background workers to improve testing speed.
-
-## Find More Bugs
-
-This tool generates different test case each time a task is running, so there are more chance to find new bug.
 
 ## Reduce Bug's Reproduce Steps
 
